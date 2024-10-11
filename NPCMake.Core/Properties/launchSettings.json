@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "NPCAdder": {
+      "commandName": "Project",
+      "commandLineArgs": "make t101i01 mytemplate.toml files c11",
+      "workingDirectory": "C:\\Users\\yehon\\source\\repos\\NPCAdder\\bin\\Debug\\net8.0"
+    }
+  }
+}
