@@ -21,12 +21,12 @@ NpcZ = 0
 NpcRotation = 0
 
 # On which chapter would your NPC be talkable? (write c01 for chapter 1, c02 for chapter 2, etc. C11 is post game)
-ChapterCode = ""c11""
+ChapterCode = "c11"
 
 # On which map ID are you adding your NPC to?
-MapID = ""t101i01""
+MapID = "t101i01"
 
-etc.....
+# etc.....
 ```
 then, you feed it into npcmake along with your mapres folder. You can get your mapres folder from your game FA using this path:
 `data/res/map/[MapID]`.
