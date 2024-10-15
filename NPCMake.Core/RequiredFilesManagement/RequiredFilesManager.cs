@@ -8,7 +8,7 @@ namespace NPCMake.Core.RequiredFilesManagement
             "npc.pck",
             "<MAPID>.pck",
             "npc_base_talk_<CHAPTER>",
-            "npc_set_0.01b",
+            "npc_set_0.01",
         ];
 
         public const string TOML_TEMPLATE =

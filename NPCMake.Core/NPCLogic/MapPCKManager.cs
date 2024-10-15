@@ -9,8 +9,8 @@ namespace NPCMake.Core.NPCLogic
         private MapXQManager _mapXQManager;
         private XPCK _mapPck;
         private const int NPC_TRIGGER_TYPE = 11;
-        private uint _npcId;
-        public MapPCKManager(RequiredFilesManager reqFilesManager, byte[] mapPckData, string OnNpcTalkCode, uint npcId)
+        private int _npcId;
+        public MapPCKManager(RequiredFilesManager reqFilesManager, byte[] mapPckData, string OnNpcTalkCode, int npcId)
         {
             _npcId = npcId;
             _reqFilesManager = reqFilesManager;

@@ -26,14 +26,17 @@ public class NPCPCKManager
         var submem = new SubMemoryStream(CreateNpcBin());
         //Add to xpck
         var npcbinpath = $"{_npcName}.npcbin";
-        _pck.Directory.Files.Add(npcbinpath, submem);
+        if (_pck.Directory.Files.ContainsKey(npcbinpath))
+        {
+            _pck.Directory.Files[npcbinpath] = submem;
+        }
+        else _pck.Directory.Files.Add(npcbinpath, submem);
     }
 
     private byte[] CreateNpcBin()
     {
-        var defNpcBinData = DefaultNpcBin.DATA;
         var npcbin = new CfgBin();
-        npcbin.Open(defNpcBinData);
+        npcbin.Open(DefaultNpcBin.DATA);
         //Get POINT entry
         var point = npcbin.Entries.Last();
         point.Variables = [

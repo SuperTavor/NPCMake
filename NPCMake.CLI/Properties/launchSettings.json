@@ -2,8 +2,8 @@
   "profiles": {
     "NPCMake.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "make mytemplate.toml files",
-      "workingDirectory": "C:\\Users\\yehon\\source\\repos\\NPCAdder\\NPCMake.CLI\\bin\\Debug\\net8.0",
+      "commandLineArgs": "make rubeus.toml t101i01",
+      "workingDirectory": "C:\\Users\\yehon\\YWMods\\RubeusJ\\include\\data\\res\\map",
       "remoteDebugEnabled": false
     }
   }

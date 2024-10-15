@@ -1,6 +1,12 @@
 # npcmake
-npcmake is a modding tool for **Yo-kai Watch 2** that allows you to easily create, place and code NPCs.
+npcmake is a modding tool for **the Yo-kai Watch series** that allows you to easily create, place and code NPCs.
 
+## Supported games
+If a game is marked, it is supported. If a game is not marked, support is planned but is not in place at the moment. If the game doesn't appear, support for it is not planned.
+
+- [ ] Yo-kai Watch 1
+- [x] Yo-kai Watch 2 
+- [x] Yo-kai Watch 3
 
 ## How does it work?
 First, you create your **NPC TOML.** An NPC TOML is a configuration file that defines many things about your NPC. It looks like this:

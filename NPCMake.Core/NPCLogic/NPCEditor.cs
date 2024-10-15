@@ -2,13 +2,13 @@
 using System.Text;
 using NPCMake.Core.RequiredFilesManagement;
 using NPCMake.Core.Utils.Tinifan.Tools;
-using System.Runtime.CompilerServices;
+
 namespace NPCMake.Core.NPCLogic;
 
 public class NPCEditor
 {
     private RequiredFilesManager _reqFilesManager;
-    private uint _npcId = 0x0;
+    private int _npcId = 0x0;
     private TomlTable _tomlTable;
     private string _npcName = "";
     private int _triggerFunctionId = 0;
@@ -22,7 +22,7 @@ public class NPCEditor
         _reqFilesManager = manager;
         _npcName = (string)_tomlTable["NpcName"];
         //Create NPC id
-        _npcId = Crc32.Compute(Encoding.UTF8.GetBytes(_npcName));
+        _npcId = (int)Crc32.Compute(Encoding.UTF8.GetBytes(_npcName));
         _baseId = (int)(long)_tomlTable["BaseId"];
         _appearCond = (string)_tomlTable["AppearCond"];
     }
@@ -34,7 +34,7 @@ public class NPCEditor
         for (int i = 0; i < keys.Count; i++)
         {
             var key = keys[i];
-            if (key.Contains("npc_set_0.01b"))
+            if (key.Contains("npc_set_0.01"))
             {
                 _reqFilesManager.RequiredFileData[key] = npcDataEditor.SetNPCInMap(_reqFilesManager.RequiredFileData[key]);
             }

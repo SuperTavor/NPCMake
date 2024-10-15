@@ -1,21 +1,15 @@
 ﻿using NPCMake.Core.RequiredFilesManagement;
 using NPCMake.Core.Utils.Tinifan.Binary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace NPCMake.Core.NPCLogic;
 
 public class NPCDataManager
 {
     private RequiredFilesManager _reqFilesManager;
     private string _npcName;
-    private uint _npcId;
+    private int _npcId;
     private string _appearCond;
     private int _baseId;
-    public NPCDataManager(RequiredFilesManager reqFilesManager, string npcName, uint npcId, int baseId, string appearCond)
+    public NPCDataManager(RequiredFilesManager reqFilesManager, string npcName, int npcId, int baseId, string appearCond)
     {
         _reqFilesManager = reqFilesManager;
         _npcName = npcName;
