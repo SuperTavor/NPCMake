@@ -9,7 +9,7 @@ If a game is marked, it is supported. If a game is not marked, support is planne
 - [x] Yo-kai Watch 3
 
 ## How does it work?
-First, you create your **NPC TOML.** An NPC TOML is a configuration file that defines many things about your NPC. It looks like this:
+First, you create your **NPC TOML.** An NPC TOML is a configuration file that defines many things about your NPC. You can generate one through the app. A npcmake TOML looks roughly like this:
 
 ```toml
 NpcX = 0
