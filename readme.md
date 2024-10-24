@@ -9,31 +9,8 @@ If a game is marked, it is supported. If a game is not marked, support is planne
 - [x] Yo-kai Watch 3
 
 ## How does it work?
-First, you create your **NPC TOML.** An NPC TOML is a configuration file that defines many things about your NPC. You can generate one through the app. A npcmake TOML looks roughly like this:
-
-```toml
-NpcX = 0
-# Y here is how it acts in 2D games, not the height.
-NpcY = 0
-# This, however, is the height.
-NpcZ = 0
-# Use degrees
-NpcRotation = 0
-
-# On which chapter would your NPC be talkable? (write c01 for chapter 1, c02 for chapter 2, etc. C11 is post game)
-ChapterCode = "c11"
-
-# On which map ID are you adding your NPC to?
-MapID = "t101i01"
-
-# etc.....
-```
-then, you feed it into npcmake along with a path to your full extracted FA.
-
-Now you're almost done! Just make sure [XtractQuery](https://github.com/onepiecefreak3/XtractQuery) is usable from the location you installed npcmake to, and install the outputted files from npcmake.
-
-Enjoy!
-
+I have created an extensive guide on how to use NPCMake on `yokai.wiki`. You can read it here:
+https://yokai.wiki/modding-guides/story-mod-utils/adding-npcs.html
 ## Special thanks
 Tinifan - CfgBin and XPCK logic
 
