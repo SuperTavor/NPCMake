@@ -6,37 +6,37 @@ using System.Text;
 
 namespace NPCMake.Core.NPCLogic;
 
-public class MapXQManager
+class MapXQManager
 {
     private RequiredFilesManager _reqFilesManager;
-
-    private XPCK _mapPck;
 
     public int TriggerFunctionID = 0;
 
     private string _onNpcTalkCode;
 
-    private const string TEMP_OG_XQ_PATH = "tmp/originalXq.xq";
+    private const string TEMP_ORIGINAL_EXTRACTED_XQ_PATH = "tmp/originalXq.xq";
 
-    private readonly string TEMP_EDITED_DECOMPILED_XQ_PATH = $"{TEMP_OG_XQ_PATH}.txt";
+    private readonly string TEMP_EDITED_DECOMPILED_XQ_PATH = $"{TEMP_ORIGINAL_EXTRACTED_XQ_PATH}.txt";
 
     private const string TEMP_DIR_PATH = "tmp";
 
-    private const string TEMP_EDITED_COMPILED_XQ_PATH = $"{TEMP_OG_XQ_PATH}.txt.xq";
-    public MapXQManager(RequiredFilesManager reqFilesManager, XPCK mapPck, string onNPCTalkCode)
+    private const string TEMP_EDITED_COMPILED_XQ_PATH = $"{TEMP_ORIGINAL_EXTRACTED_XQ_PATH}.txt.xq";
+
+
+    public MapXQManager(RequiredFilesManager reqFilesManager, string onNPCTalkCode, string? xqPath = null)
     {
         _onNpcTalkCode = onNPCTalkCode;
         _reqFilesManager = reqFilesManager;
-        _mapPck = mapPck;
+        if (xqPath != null)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(TEMP_ORIGINAL_EXTRACTED_XQ_PATH));
+            File.Copy(xqPath, TEMP_ORIGINAL_EXTRACTED_XQ_PATH, true);
+        }
     }
 
-    public void AddNewTriggerFunctionToXQ()
+    public byte[] AddNewTriggerFunctionToXQ()
     {
-        var xqPath = $"{_reqFilesManager.MapID}.xq";
-        var xq = _mapPck.Directory.Files[xqPath];
-        //Save tmp file 
-        if (!Directory.Exists("tmp")) Directory.CreateDirectory("tmp");
-        File.WriteAllBytes(TEMP_OG_XQ_PATH, xq.ByteContent);
+        Console.WriteLine("Compiling NPC XQ...");
         //decompile it
         DecompileVanillaTrigger();
 
@@ -50,12 +50,13 @@ public class MapXQManager
 
         var newXqbytes = File.ReadAllBytes(TEMP_EDITED_COMPILED_XQ_PATH);
         DeleteTempDirectory();
-        _mapPck.Directory.Files[xqPath] = new SubMemoryStream(newXqbytes);
+
+        return newXqbytes;
     }
 
     private void DecompileVanillaTrigger()
     {
-        PerformXtractQueryOperation($"-o e -f {TEMP_OG_XQ_PATH}", "Initial decomp error");
+        PerformXtractQueryOperation($"-o e -f {TEMP_ORIGINAL_EXTRACTED_XQ_PATH}", "Initial decomp error");
     }
 
     private void PerformXtractQueryOperation(string arguments, string errorText)

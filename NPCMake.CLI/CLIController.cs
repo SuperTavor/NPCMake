@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using Tomlyn;
 using NPCMake.Core.RequiredFilesManagement;
+using NPCMake.Core.Utils;
 namespace NPCMake.CLI;
 
 public class CLIController
 {
     #region Consts
     private readonly string USAGE =
-    @$"npcmake USAGE:
+    @$"npcmake version {AppConsts.APP_VER} USAGE:
             Make sure XtractQuery is available from the CMD in this location. You can get it here: https://github.com/onepiecefreak3/XtractQuery/releases
             Modes:
                 template - Writes a NPCAdder toml template to a file. Specify the file path like this:
@@ -72,6 +73,7 @@ public class CLIController
             var tomlTable = Toml.Parse(File.ReadAllText(tomlPath)).ToModel();
             var mapid = (string)tomlTable["MapID"];
             var chapterCode = (string)tomlTable["ChapterCode"];
+            var isYw1 = (bool)tomlTable["IsYw1"];
             //check if folder exists
             if (!Directory.Exists(folderWithImportantFiles))
             {
@@ -79,7 +81,7 @@ public class CLIController
             }
             else
             {
-                var requiredFilesManager = new RequiredFilesManager(folderWithImportantFiles, mapid);
+                var requiredFilesManager = new RequiredFilesManager(folderWithImportantFiles, mapid, isYw1);
                 if(!requiredFilesManager.IsXtractQueryAvailable())
                 {
                     Console.WriteLine("XtractQuery is not accessible from this location.");

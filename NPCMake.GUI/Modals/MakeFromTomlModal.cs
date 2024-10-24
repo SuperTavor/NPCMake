@@ -75,8 +75,8 @@ namespace NPCMake.GUI.Modals
             var tomlTable = Toml.Parse(File.ReadAllText(_tomlPath)).ToModel();
             var mapid = (string)tomlTable["MapID"];
             var chapterCode = (string)tomlTable["ChapterCode"];
-
-            var requiredFilesManager = new RequiredFilesManager(_requiredFolderPath, mapid);
+            var isYw1 = (bool)tomlTable["IsYw1"];
+            var requiredFilesManager = new RequiredFilesManager(_requiredFolderPath, mapid, isYw1);
             if (!requiredFilesManager.IsXtractQueryAvailable())
             {
                 await MessageBox.ShowInformationAsync("Err", "XtractQuery is not accessible from this location.");

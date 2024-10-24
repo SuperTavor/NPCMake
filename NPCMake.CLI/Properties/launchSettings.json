@@ -2,8 +2,8 @@
   "profiles": {
     "NPCMake.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "make rubeus.toml t101i01",
-      "workingDirectory": "C:\\Users\\yehon\\YWMods\\RubeusJ\\include\\data\\res\\map",
+      "commandLineArgs": "make mynpc.toml C:\\Users\\yehon\\YWMods\\CleanYw1",
+      "workingDirectory": "C:\\Users\\yehon\\YWMods\\1npc",
       "remoteDebugEnabled": false
     }
   }

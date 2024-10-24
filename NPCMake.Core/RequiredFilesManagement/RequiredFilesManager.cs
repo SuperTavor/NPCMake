@@ -4,12 +4,7 @@ namespace NPCMake.Core.RequiredFilesManagement
 {
     public class RequiredFilesManager
     {
-        public readonly List<string> REQUIRED_FILES = [
-            "npc.pck",
-            "<MAPID>.pck",
-            "npc_base_talk_<CHAPTER>",
-            "npc_set_0.01",
-        ];
+        public List<string> RequiredFiles;
 
         public const string TOML_TEMPLATE =
        @"
@@ -43,16 +38,45 @@ $local1 = log(""Hello, world!"");
 # https://mega.nz/file/09xHySDJ#7SkW5yDiS3Ccw3r1naLXqlp03pXP1c9a7VrS67HOQGc
 # NOTE: You can leave the cond as is for the NPC to appear at all times.
 AppearCond = ""0""
+
+# Specifies if you are adding your NPC to Yo-kai Watch 1. Leave as false if you are working with YW2 or 3.
+IsYw1 = false
+
+# How will your NPC appear on the map?
+# Available NPCTypes:
+# HUMAN
+# YOKAI
+# (Make sure to spell your NPCType exactly like in the last comments, or replace the NPCType with an int value representing any NPCType.)
+NpcType = ""HUMAN""
     ";
 
         public Dictionary<string, byte[]> RequiredFileData = new Dictionary<string, byte[]>();
-        private string _dir;
+        public string RequiredFilesSourceDir;
         public string MapID = "";
-        public RequiredFilesManager(string dir, string mapid)
+        public RequiredFilesManager(string dir, string mapid, bool isYw1)
         {
-            _dir = dir;
+            RequiredFilesSourceDir = dir;
             MapID = mapid;
+            RequiredFiles = GetProperRequiredFiles(isYw1);
         }
+
+        private List<string> GetProperRequiredFiles(bool isYw1) => isYw1 switch
+        {
+            false => 
+            [
+                "data/res/map/<MAPID>/npc.pck",
+                "data/res/map/<MAPID>/<MAPID>.pck",
+                "data/res/map/<MAPID>/<MAPID>_npc_base_talk_<CHAPTER>",
+                "data/res/map/<MAPID>/<MAPID>_npc_set_0.01",
+            ],
+            true =>
+            [
+                "data/res/map/<MAPID>/<MAPID>_trigger",
+                "data/res/map/<MAPID>/<MAPID>_npc_set_0.02",
+                "data/res/map/<MAPID>/<MAPID>_npc_base_talk_<CHAPTER>_0.02",
+                "seq/map/<MAPID>.xq"
+            ]
+        };
 
         public bool IsXtractQueryAvailable()
         {
@@ -69,21 +93,22 @@ AppearCond = ""0""
         public bool DirHasFiles(string chapterCode)
         {
             //Get files from directory
-            var dirFiles = Directory.GetFiles(_dir);
+            var dirFiles = Directory.GetFiles(RequiredFilesSourceDir, "*.*", SearchOption.AllDirectories)
+                                .Select(x => x.Replace("\\","/"));
             int foundFiles = 0;
             foreach (var file in dirFiles)
             {
-                foreach (var requiredFile in REQUIRED_FILES)
+                foreach (var requiredFile in RequiredFiles)
                 {
                     var modifiedRequiredFile = requiredFile.Replace("<MAPID>", MapID).Replace("<CHAPTER>", chapterCode);
                     if (file.Contains(modifiedRequiredFile))
                     {
-                        RequiredFileData[Path.GetFileName(file)] = File.ReadAllBytes(file);
+                        RequiredFileData[Path.GetRelativePath(RequiredFilesSourceDir,file)] = File.ReadAllBytes(file);
                         foundFiles++;
                     }
                 }
             }
-            return foundFiles >= REQUIRED_FILES.Count;
+            return foundFiles >= RequiredFiles.Count;
         }
     }
 }

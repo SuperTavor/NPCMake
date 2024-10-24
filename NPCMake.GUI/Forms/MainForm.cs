@@ -1,10 +1,12 @@
 ﻿using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
+using ImGui.Forms.Controls.Menu;
 using ImGui.Forms.Factories;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Modals.IO.Windows;
 using NPCMake.Core.RequiredFilesManagement;
+using NPCMake.Core.Utils;
 using NPCMake.GUI.Modals;
 
 namespace NPCMake.GUI.Forms
@@ -15,11 +17,25 @@ namespace NPCMake.GUI.Forms
         {
             this.Title = "npcmake";
             this.Content = GetMainContent();
+            this.MenuBar = GetMenuBar();
         }
 
         private async void MakeFromToml(object s, EventArgs e)
         {
             await new MakeFromTomlModal().ShowAsync();
+        }
+        private MainMenuBar GetMenuBar()
+        {
+            return new MainMenuBar
+            {
+                Items =
+                {
+                    new MenuBarButton($"npcmake v{AppConsts.APP_VER}")
+                    {
+                        Enabled = false
+                    }
+                }
+            };
         }
         private StackLayout GetMainContent()
         {

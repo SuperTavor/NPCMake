@@ -2,20 +2,22 @@
 using NPCMake.Core.Utils.Tinifan.Binary;
 namespace NPCMake.Core.NPCLogic;
 
-public class NPCDataManager
+class NPCDataManager
 {
     private RequiredFilesManager _reqFilesManager;
     private string _npcName;
     private int _npcId;
     private string _appearCond;
     private int _baseId;
-    public NPCDataManager(RequiredFilesManager reqFilesManager, string npcName, int npcId, int baseId, string appearCond)
+    private int _npcType;
+    public NPCDataManager(RequiredFilesManager reqFilesManager, string npcName, int npcId, int baseId, string appearCond, int npcType)
     {
         _reqFilesManager = reqFilesManager;
         _npcName = npcName;
         _npcId = npcId;
         _baseId = baseId;
         _appearCond = appearCond;
+        _npcType = npcType;
     }
 
     public byte[] MakeNPCTalkable(byte[] npcBaseTalkData)
@@ -42,6 +44,7 @@ public class NPCDataManager
         return cfgbin.Save();
     }
 
+   
 
     private void AddNpcSetBaseEntry(CfgBin cfgbin)
     {
@@ -57,7 +60,7 @@ public class NPCDataManager
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 0),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, _baseId),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 0),
-            new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 2),
+            new(Core.Utils.Tinifan.Binary.Logic.Type.Int, _npcType),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 0),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 0),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 0),
@@ -79,14 +82,13 @@ public class NPCDataManager
         var newNpcAppearEntry = npcAppear.Children[0].Clone();
         newNpcAppearEntry.Variables =
         [
-            //npc name
             new(Core.Utils.Tinifan.Binary.Logic.Type.String, _npcName),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, -1),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, -1),
             new(Core.Utils.Tinifan.Binary.Logic.Type.String, _appearCond),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, -1),
             new(Core.Utils.Tinifan.Binary.Logic.Type.Int, 0),
-            new(Core.Utils.Tinifan.Binary.Logic.Type.Int, -1),
+            new(Core.Utils.Tinifan.Binary.Logic.Type.Int, -1)
         ];
         npcAppear.Children.Add(newNpcAppearEntry);
         //get new entry's offset to use later

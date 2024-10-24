@@ -4,7 +4,7 @@ npcmake is a modding tool for **the Yo-kai Watch series** that allows you to eas
 ## Supported games
 If a game is marked, it is supported. If a game is not marked, support is planned but is not in place at the moment. If the game doesn't appear, support for it is not planned.
 
-- [ ] Yo-kai Watch 1
+- [x] Yo-kai Watch 1
 - [x] Yo-kai Watch 2 
 - [x] Yo-kai Watch 3
 
@@ -28,8 +28,7 @@ MapID = "t101i01"
 
 # etc.....
 ```
-then, you feed it into npcmake along with your mapres folder. You can get your mapres folder from your game FA using this path:
-`data/res/map/[MapID]`.
+then, you feed it into npcmake along with a path to your full extracted FA.
 
 Now you're almost done! Just make sure [XtractQuery](https://github.com/onepiecefreak3/XtractQuery) is usable from the location you installed npcmake to, and install the outputted files from npcmake.
 
